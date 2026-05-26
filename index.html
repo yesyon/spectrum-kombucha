@@ -966,7 +966,6 @@
     <li><a href="#products">Shop</a></li>
     <li><a href="#about">Our Story</a></li>
     <li><a href="#bundle">Bundles</a></li>
-    <li><a href="#contact">Order</a></li>
   </ul>
   <button class="nav-cart" id="cartBtn">Cart (0)</button>
 </nav>
@@ -1244,107 +1243,6 @@
   </div>
 </section>
 
-<!-- CONTACT / ORDER FORM -->
-<section class="contact" id="contact">
-  <div class="contact-inner">
-    <div class="contact-left">
-      <p class="section-eyebrow">Get in Touch</p>
-      <h2 class="section-title">Place an <em>order.</em></h2>
-      <p class="contact-sub">Fill in the form and we'll confirm your order and arrange delivery. Usually within 24 hours.</p>
-      <div class="contact-details">
-        <div class="contact-detail-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A8C6A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.94-.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          <span>+972 58-675-2915</span>
-        </div>
-        <div class="contact-detail-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A8C6A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          <span>Reply within 24 hours</span>
-        </div>
-        <div class="contact-detail-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7A8C6A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          <span>Delivering across Israel</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="contact-right">
-      <div id="formSuccess" style="display:none;" class="form-success">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#3B4A2F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        <h3>Order received!</h3>
-        <p>We'll be in touch within 24 hours to confirm your order and arrange delivery.</p>
-      </div>
-
-      <div id="orderForm">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label" for="fname">Full Name *</label>
-            <input class="form-input" type="text" id="fname" placeholder="Your full name" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="fphone">Phone Number *</label>
-            <input class="form-input" type="tel" id="fphone" placeholder="05X-XXX-XXXX" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="femail">Email Address *</label>
-          <input class="form-input" type="email" id="femail" placeholder="your@email.com" required>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="faddress">Delivery Address *</label>
-          <input class="form-input" type="text" id="faddress" placeholder="Street, City, Postcode" required>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Flavours & Quantity *</label>
-          <div class="flavour-picker">
-            <div class="flavour-row">
-              <span class="flavour-label">Ginger Lemon</span>
-              <div class="flavour-qty">
-                <button type="button" class="qty-btn" onclick="changeFlavourQty('gingerLemon', -1)">&#8722;</button>
-                <span class="qty-num" id="gingerLemon-qty">0</span>
-                <button type="button" class="qty-btn" onclick="changeFlavourQty('gingerLemon', 1)">&#43;</button>
-              </div>
-              <span class="flavour-price" id="gingerLemon-price">₪0</span>
-            </div>
-            <div class="flavour-row">
-              <span class="flavour-label">Wild Berry</span>
-              <div class="flavour-qty">
-                <button type="button" class="qty-btn" onclick="changeFlavourQty('wildBerry', -1)">&#8722;</button>
-                <span class="qty-num" id="wildBerry-qty">0</span>
-                <button type="button" class="qty-btn" onclick="changeFlavourQty('wildBerry', 1)">&#43;</button>
-              </div>
-              <span class="flavour-price" id="wildBerry-price">₪0</span>
-            </div>
-            <div class="flavour-row">
-              <span class="flavour-label">Green Apple</span>
-              <div class="flavour-qty">
-                <button type="button" class="qty-btn" onclick="changeFlavourQty('greenApple', -1)">&#8722;</button>
-                <span class="qty-num" id="greenApple-qty">0</span>
-                <button type="button" class="qty-btn" onclick="changeFlavourQty('greenApple', 1)">&#43;</button>
-              </div>
-              <span class="flavour-price" id="greenApple-price">₪0</span>
-            </div>
-            <div class="flavour-total-row">
-              <span>Order Total</span>
-              <span class="flavour-total" id="form-total">₪0</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="fnotes">Special Requests / Notes</label>
-          <textarea class="form-input form-textarea" id="fnotes" placeholder="Any allergies, delivery instructions, or questions..."></textarea>
-        </div>
-
-        <button type="button" class="btn-primary" style="width:100%; padding: 1rem; font-size: 0.85rem;" onclick="submitOrderForm()">Send Order Request</button>
-        <p style="font-size: 0.72rem; color: var(--sage); text-align: center; margin-top: 0.75rem; letter-spacing: 0.04em;">We'll confirm your order and send payment details within 24 hours.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
@@ -1469,65 +1367,8 @@
   });
 
   function checkout() {
-    var total = cart.reduce(function(sum, i) { return sum + i.price * i.qty; }, 0);
-    // TODO: Replace YOUR_TERMINAL with your Tranzila terminal name once you have it
-    var terminal = 'YOUR_TERMINAL';
-    var url = 'https://secure.tranzila.com/cgi-bin/tranzila71u.cgi' +
-      '?supplier=' + terminal +
-      '&sum=' + total +
-      '&currency=1' +
-      '&lang=il' +
-      '&tranzilaTK=1';
-    window.location.href = url;
-  }
-
-  // Form flavour quantities
-  var flavourQtys = { gingerLemon: 0, wildBerry: 0, greenApple: 0 };
-  var flavourPrice = 18;
-
-  function changeFlavourQty(flavour, delta) {
-    flavourQtys[flavour] = Math.max(0, flavourQtys[flavour] + delta);
-    document.getElementById(flavour + '-qty').textContent = flavourQtys[flavour];
-    document.getElementById(flavour + '-price').textContent = '₪' + (flavourQtys[flavour] * flavourPrice);
-    var total = (flavourQtys.gingerLemon + flavourQtys.wildBerry + flavourQtys.greenApple) * flavourPrice;
-    document.getElementById('form-total').textContent = '₪' + total;
-  }
-
-  function submitOrderForm() {
-    var name = document.getElementById('fname').value.trim();
-    var phone = document.getElementById('fphone').value.trim();
-    var email = document.getElementById('femail').value.trim();
-    var address = document.getElementById('faddress').value.trim();
-    var totalBottles = flavourQtys.gingerLemon + flavourQtys.wildBerry + flavourQtys.greenApple;
-
-    if (!name || !phone || !email || !address) {
-      showToast('Please fill in all required fields');
-      return;
-    }
-    if (totalBottles === 0) {
-      showToast('Please select at least one bottle');
-      return;
-    }
-
-    var notes = document.getElementById('fnotes').value.trim();
-    var total = totalBottles * flavourPrice;
-
-    var msg = 'Hi Spectrum Kombucha! I would like to place an order:%0A%0A' +
-      '*Name:* ' + encodeURIComponent(name) + '%0A' +
-      '*Phone:* ' + encodeURIComponent(phone) + '%0A' +
-      '*Email:* ' + encodeURIComponent(email) + '%0A' +
-      '*Address:* ' + encodeURIComponent(address) + '%0A%0A' +
-      '*Order:*%0A' +
-      (flavourQtys.gingerLemon > 0 ? '- Ginger Lemon x' + flavourQtys.gingerLemon + '%0A' : '') +
-      (flavourQtys.wildBerry > 0 ? '- Wild Berry x' + flavourQtys.wildBerry + '%0A' : '') +
-      (flavourQtys.greenApple > 0 ? '- Green Apple x' + flavourQtys.greenApple + '%0A' : '') +
-      '*Total: ₪' + total + '*' +
-      (notes ? '%0A%0A*Notes:* ' + encodeURIComponent(notes) : '');
-
-    window.open('https://wa.me/972586752915?text=' + msg, '_blank');
-
-    document.getElementById('orderForm').style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'flex';
+    localStorage.setItem('spectrum_cart', JSON.stringify(cart));
+    window.location.href = 'checkout.html';
   }
 
   function showToast(msg) {
