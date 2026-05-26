@@ -662,6 +662,7 @@
 
       if (!response.ok) {
         var err = await response.json();
+        showToast('Error: ' + (err.message || err.hint || response.status));
         throw new Error(err.message || 'Failed to save order');
       }
 
