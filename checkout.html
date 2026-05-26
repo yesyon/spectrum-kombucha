@@ -666,8 +666,11 @@
         throw new Error(err.message || 'Failed to save order');
       }
 
-      var data = await response.json();
-      var orderId = data[0] && data[0].id ? data[0].id.slice(0, 8).toUpperCase() : '—';
+      var orderId = Math.random().toString(36).slice(2, 10).toUpperCase();
+      try {
+        var data = await response.json();
+        if (data && data[0] && data[0].id) orderId = data[0].id.slice(0, 8).toUpperCase();
+      } catch(e) {}
 
       document.getElementById('checkoutWrap').style.display = 'none';
       var successEl = document.getElementById('successScreen');
