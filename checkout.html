@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — Spectrum Kombucha</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --moss: #3B4A2F;
+    --sage: #7A8C6A;
+    --cream: #F5F0E8;
+    --sand: #E8DFD0;
+    --terra: #A0714F;
+    --clay: #C8956A;
+    --bark: #2A3020;
+    --mist: #D4DCCC;
+    --white: #FDFAF5;
+    --error: #C0392B;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--bark);
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: var(--white);
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--moss);
+    text-decoration: none;
+  }
+
+  .nav-back {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--moss); }
+
+  /* LAYOUT */
+  .checkout-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  /* FORM PANEL */
+  .form-panel {
+    background: var(--white);
+    border: 1px solid var(--sand);
+    padding: 2.5rem;
+  }
+
+  .panel-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--moss);
+    margin-bottom: 0.4rem;
+  }
+
+  .panel-sub {
+    font-size: 0.82rem;
+    color: var(--sage);
+    margin-bottom: 2rem;
+    letter-spacing: 0.03em;
+  }
+
+  .form-section-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 1rem;
+    margin-top: 1.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--sand);
+  }
+  .form-section-title:first-of-type { margin-top: 0; }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-group { margin-bottom: 1.1rem; }
+
+  .form-label {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 0.45rem;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--sand);
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--bark);
+    outline: none;
+    transition: border-color 0.2s;
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+  .form-input:focus { border-color: var(--moss); }
+  .form-input::placeholder { color: var(--mist); }
+  .form-input.error { border-color: var(--error); }
+
+  .form-textarea {
+    min-height: 90px;
+    resize: vertical;
+  }
+
+  /* FLAVOUR PICKER */
+  .flavour-picker {
+    border: 1px solid var(--sand);
+    overflow: hidden;
+    margin-bottom: 1.1rem;
+  }
+
+  .flavour-row {
+    display: flex;
+    align-items: center;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--sand);
+    gap: 1rem;
+  }
+  .flavour-row:last-of-type { border-bottom: none; }
+
+  .flavour-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .flavour-label {
+    font-size: 0.9rem;
+    color: var(--bark);
+    flex: 1;
+  }
+
+  .flavour-unit-price {
+    font-size: 0.78rem;
+    color: var(--sage);
+    min-width: 50px;
+  }
+
+  .flavour-qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .qty-btn {
+    width: 30px; height: 30px;
+    border: 1px solid var(--mist);
+    background: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--moss);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .qty-btn:hover { background: var(--moss); color: var(--cream); border-color: var(--moss); }
+
+  .qty-num {
+    font-size: 0.95rem;
+    min-width: 22px;
+    text-align: center;
+    color: var(--bark);
+    font-weight: 500;
+  }
+
+  .flavour-line-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--moss);
+    min-width: 44px;
+    text-align: right;
+  }
+
+  /* ORDER SUMMARY PANEL */
+  .summary-panel {
+    background: var(--white);
+    border: 1px solid var(--sand);
+    padding: 2rem;
+    position: sticky;
+    top: 2rem;
+  }
+
+  .summary-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--moss);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .summary-items { margin-bottom: 1.25rem; }
+
+  .summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    font-size: 0.88rem;
+    color: var(--bark);
+    border-bottom: 1px solid var(--sand);
+  }
+  .summary-item:last-child { border-bottom: none; }
+
+  .summary-item-name { color: var(--bark); }
+  .summary-item-qty { color: var(--sage); font-size: 0.78rem; margin-left: 0.5rem; }
+  .summary-item-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--moss);
+  }
+
+  .summary-empty {
+    font-size: 0.85rem;
+    color: var(--sage);
+    text-align: center;
+    padding: 1.5rem 0;
+  }
+
+  .summary-divider {
+    border: none;
+    border-top: 1px solid var(--sand);
+    margin: 1rem 0;
+  }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--sage);
+  }
+
+  .summary-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--sand);
+  }
+
+  .summary-total-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--moss);
+    font-weight: 500;
+  }
+
+  .summary-total-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--moss);
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--moss);
+    color: var(--cream);
+    border: none;
+    padding: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 1.25rem;
+  }
+  .submit-btn:hover:not(:disabled) { background: var(--bark); }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .submit-note {
+    font-size: 0.7rem;
+    color: var(--sage);
+    text-align: center;
+    margin-top: 0.75rem;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+  }
+
+  /* SUCCESS */
+  .success-screen {
+    display: none;
+    max-width: 520px;
+    margin: 6rem auto;
+    text-align: center;
+    padding: 3rem;
+    background: var(--white);
+    border: 1px solid var(--sand);
+  }
+
+  .success-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--moss);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+  }
+
+  .success-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--moss);
+    margin-bottom: 0.75rem;
+  }
+
+  .success-sub {
+    font-size: 0.9rem;
+    color: var(--sage);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .success-order-id {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--mist);
+    margin-bottom: 2rem;
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 2rem; left: 50%;
+    transform: translateX(-50%) translateY(6rem);
+    background: var(--error);
+    color: white;
+    padding: 0.85rem 1.75rem;
+    font-size: 0.82rem;
+    z-index: 999;
+    opacity: 0;
+    transition: all 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  .toast.success-toast { background: var(--moss); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .checkout-wrap { grid-template-columns: 1fr; padding: 1.5rem; }
+    .summary-panel { position: static; }
+    .form-row { grid-template-columns: 1fr; }
+    .form-panel { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Spectrum</a>
+  <a href="index.html" class="nav-back">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to shop
+  </a>
+</nav>
+
+<!-- SUCCESS SCREEN -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <h2 class="success-title">Order received!</h2>
+  <p class="success-sub">Thank you for your order. We'll be in touch within 24 hours to confirm delivery details and payment.</p>
+  <p class="success-order-id" id="successOrderId"></p>
+  <a href="index.html" style="display:inline-block; background:var(--moss); color:var(--cream); padding:0.9rem 2rem; font-size:0.8rem; letter-spacing:0.12em; text-transform:uppercase; text-decoration:none;">Back to Shop</a>
+</div>
+
+<!-- CHECKOUT LAYOUT -->
+<div class="checkout-wrap" id="checkoutWrap">
+
+  <!-- LEFT: FORM -->
+  <div class="form-panel">
+    <h1 class="panel-title">Your Order</h1>
+    <p class="panel-sub">Fill in your details and we'll confirm everything within 24 hours.</p>
+
+    <p class="form-section-title">Contact Details</p>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="fname">Full Name *</label>
+        <input class="form-input" type="text" id="fname" placeholder="Your full name">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="fphone">Phone Number *</label>
+        <input class="form-input" type="tel" id="fphone" placeholder="05X-XXX-XXXX">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="femail">Email Address *</label>
+      <input class="form-input" type="email" id="femail" placeholder="your@email.com">
+    </div>
+
+    <p class="form-section-title">Delivery Address</p>
+
+    <div class="form-group">
+      <label class="form-label" for="faddress">Street & Number *</label>
+      <input class="form-input" type="text" id="faddress" placeholder="e.g. Herzl 42">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="fcity">City *</label>
+        <input class="form-input" type="text" id="fcity" placeholder="e.g. Tel Aviv">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="fzip">Postcode</label>
+        <input class="form-input" type="text" id="fzip" placeholder="e.g. 6701101">
+      </div>
+    </div>
+
+    <p class="form-section-title">Your Order</p>
+
+    <div class="flavour-picker">
+      <div class="flavour-row">
+        <div class="flavour-dot" style="background:#D4A800;"></div>
+        <span class="flavour-label">Ginger Lemon</span>
+        <span class="flavour-unit-price">₪18 each</span>
+        <div class="flavour-qty-controls">
+          <button type="button" class="qty-btn" onclick="changeQty('gingerLemon', -1)">&#8722;</button>
+          <span class="qty-num" id="gingerLemon-qty">0</span>
+          <button type="button" class="qty-btn" onclick="changeQty('gingerLemon', 1)">&#43;</button>
+        </div>
+        <span class="flavour-line-price" id="gingerLemon-price">₪0</span>
+      </div>
+      <div class="flavour-row">
+        <div class="flavour-dot" style="background:#7850A8;"></div>
+        <span class="flavour-label">Wild Berry</span>
+        <span class="flavour-unit-price">₪18 each</span>
+        <div class="flavour-qty-controls">
+          <button type="button" class="qty-btn" onclick="changeQty('wildBerry', -1)">&#8722;</button>
+          <span class="qty-num" id="wildBerry-qty">0</span>
+          <button type="button" class="qty-btn" onclick="changeQty('wildBerry', 1)">&#43;</button>
+        </div>
+        <span class="flavour-line-price" id="wildBerry-price">₪0</span>
+      </div>
+      <div class="flavour-row">
+        <div class="flavour-dot" style="background:#5A8C40;"></div>
+        <span class="flavour-label">Green Apple</span>
+        <span class="flavour-unit-price">₪18 each</span>
+        <div class="flavour-qty-controls">
+          <button type="button" class="qty-btn" onclick="changeQty('greenApple', -1)">&#8722;</button>
+          <span class="qty-num" id="greenApple-qty">0</span>
+          <button type="button" class="qty-btn" onclick="changeQty('greenApple', 1)">&#43;</button>
+        </div>
+        <span class="flavour-line-price" id="greenApple-price">₪0</span>
+      </div>
+    </div>
+
+    <p class="form-section-title">Notes</p>
+    <div class="form-group">
+      <label class="form-label" for="fnotes">Special Requests / Delivery Instructions</label>
+      <textarea class="form-input form-textarea" id="fnotes" placeholder="Any allergies, access instructions, preferred delivery time..."></textarea>
+    </div>
+  </div>
+
+  <!-- RIGHT: SUMMARY -->
+  <div class="summary-panel">
+    <h2 class="summary-title">Order Summary</h2>
+
+    <div class="summary-items" id="summaryItems">
+      <p class="summary-empty">No items yet — select flavours on the left.</p>
+    </div>
+
+    <div class="summary-row">
+      <span>Bottles</span>
+      <span id="summaryBottleCount">0</span>
+    </div>
+    <div class="summary-row">
+      <span>Delivery</span>
+      <span>Confirmed on order</span>
+    </div>
+
+    <div class="summary-total-row">
+      <span class="summary-total-label">Total</span>
+      <span class="summary-total-amount" id="summaryTotal">₪0</span>
+    </div>
+
+    <button class="submit-btn" id="submitBtn" onclick="submitOrder()">Place Order</button>
+    <p class="submit-note">No payment now — we'll confirm your order and send payment details within 24 hours.</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  var SUPABASE_URL = 'https://rgckdkrivpcowxfdsamk.supabase.co';
+  var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnY2tka3JpdnBjb3d4ZmRzYW1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3OTc3NzcsImV4cCI6MjA5NTM3Mzc3N30.ES2lcY6YZzqS-z8KBlQ-bvF_oaQrtnyF9jjfuKps4mg';
+  var PRICE = 18;
+
+  var qtys = { gingerLemon: 0, wildBerry: 0, greenApple: 0 };
+  var labels = { gingerLemon: 'Ginger Lemon', wildBerry: 'Wild Berry', greenApple: 'Green Apple' };
+
+  // Load cart from main page if available
+  try {
+    var saved = localStorage.getItem('spectrum_cart');
+    if (saved) {
+      var cartItems = JSON.parse(saved);
+      cartItems.forEach(function(item) {
+        if (item.name === 'Ginger Lemon') qtys.gingerLemon = item.qty;
+        if (item.name === 'Wild Berry') qtys.wildBerry = item.qty;
+        if (item.name === 'Green Apple') qtys.greenApple = item.qty;
+        if (item.name === 'Discovery Bundle (6 bottles)') {
+          qtys.gingerLemon += 2; qtys.wildBerry += 2; qtys.greenApple += 2;
+        }
+      });
+      localStorage.removeItem('spectrum_cart');
+      refreshUI();
+    }
+  } catch(e) {}
+
+  function changeQty(flavour, delta) {
+    qtys[flavour] = Math.max(0, qtys[flavour] + delta);
+    refreshUI();
+  }
+
+  function refreshUI() {
+    var total = 0;
+    var bottleCount = 0;
+    Object.keys(qtys).forEach(function(f) {
+      var q = qtys[f];
+      var lineTotal = q * PRICE;
+      total += lineTotal;
+      bottleCount += q;
+      document.getElementById(f + '-qty').textContent = q;
+      document.getElementById(f + '-price').textContent = '₪' + lineTotal;
+    });
+
+    document.getElementById('summaryTotal').textContent = '₪' + total;
+    document.getElementById('summaryBottleCount').textContent = bottleCount;
+
+    var itemsEl = document.getElementById('summaryItems');
+    var activeItems = Object.keys(qtys).filter(function(f) { return qtys[f] > 0; });
+
+    if (activeItems.length === 0) {
+      itemsEl.innerHTML = '<p class="summary-empty">No items yet — select flavours on the left.</p>';
+    } else {
+      itemsEl.innerHTML = activeItems.map(function(f) {
+        return '<div class="summary-item">' +
+          '<span class="summary-item-name">' + labels[f] + '<span class="summary-item-qty">x' + qtys[f] + '</span></span>' +
+          '<span class="summary-item-price">₪' + (qtys[f] * PRICE) + '</span>' +
+          '</div>';
+      }).join('');
+    }
+  }
+
+  async function submitOrder() {
+    var name = document.getElementById('fname').value.trim();
+    var phone = document.getElementById('fphone').value.trim();
+    var email = document.getElementById('femail').value.trim();
+    var address = document.getElementById('faddress').value.trim();
+    var city = document.getElementById('fcity').value.trim();
+    var zip = document.getElementById('fzip').value.trim();
+    var notes = document.getElementById('fnotes').value.trim();
+    var totalBottles = qtys.gingerLemon + qtys.wildBerry + qtys.greenApple;
+    var totalPrice = totalBottles * PRICE;
+
+    // Validate
+    var errors = [];
+    if (!name) errors.push('fname');
+    if (!phone) errors.push('fphone');
+    if (!email || !email.includes('@')) errors.push('femail');
+    if (!address) errors.push('faddress');
+    if (!city) errors.push('fcity');
+
+    document.querySelectorAll('.form-input').forEach(function(el) { el.classList.remove('error'); });
+    if (errors.length > 0) {
+      errors.forEach(function(id) { document.getElementById(id).classList.add('error'); });
+      showToast('Please fill in all required fields');
+      return;
+    }
+    if (totalBottles === 0) {
+      showToast('Please select at least one bottle');
+      return;
+    }
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Placing order...';
+
+    var fullAddress = address + ', ' + city + (zip ? ', ' + zip : '');
+
+    try {
+      var response = await fetch(SUPABASE_URL + '/rest/v1/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_KEY,
+          'Prefer': 'return=representation'
+        },
+        body: JSON.stringify({
+          name: name,
+          phone: phone,
+          email: email,
+          address: fullAddress,
+          ginger_lemon: qtys.gingerLemon,
+          wild_berry: qtys.wildBerry,
+          green_apple: qtys.greenApple,
+          total_bottles: totalBottles,
+          total_price: totalPrice,
+          notes: notes || null,
+          status: 'pending'
+        })
+      });
+
+      if (!response.ok) {
+        var err = await response.json();
+        throw new Error(err.message || 'Failed to save order');
+      }
+
+      var data = await response.json();
+      var orderId = data[0] && data[0].id ? data[0].id.slice(0, 8).toUpperCase() : '—';
+
+      document.getElementById('checkoutWrap').style.display = 'none';
+      var successEl = document.getElementById('successScreen');
+      successEl.style.display = 'block';
+      document.getElementById('successOrderId').textContent = 'Order reference: #' + orderId;
+
+    } catch(err) {
+      console.error(err);
+      showToast('Something went wrong. Please try again.');
+      btn.disabled = false;
+      btn.textContent = 'Place Order';
+    }
+  }
+
+  function showToast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 3000);
+  }
+</script>
+</body>
+</html>
